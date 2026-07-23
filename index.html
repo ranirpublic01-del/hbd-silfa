@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 23rd Birthday, Silfa! ❤️</title>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Latar belakang krem muda ke pink super lembut */
+            background-color: #FDFBF7;
+            color: #4A3B3D; /* Coklat keabuan hangat, nyaman dibaca */
+            overflow-x: hidden;
+            overflow-y: hidden;
+            position: relative;
+        }
+
+        /* --- 3D Background Orbs (Kedalaman 3D dengan warna pastel/dusty) --- */
+        .bg-orbs {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(120deg, #FDFBF7 0%, #F5EAEB 100%);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            animation: floatOrb 20s infinite alternate ease-in-out;
+            opacity: 0.7;
+        }
+
+        .orb-1 {
+            width: 450px; height: 450px;
+            background: #E8C4C4; /* Dusty pink lembut */
+            top: -15%; left: -10%;
+        }
+
+        .orb-2 {
+            width: 550px; height: 550px;
+            background: #D7A9A9; /* Muted rose */
+            bottom: -20%; right: -15%;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 350px; height: 350px;
+            background: #CE9797; /* Deep muted pink */
+            top: 35%; left: 35%;
+            animation-delay: -10s;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, 20px) scale(1.1); }
+            100% { transform: translate(-20px, 40px) scale(0.95); }
+        }
+
+        /* --- Layar Pembuka --- */
+        #welcome-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        #welcome-screen.hide {
+            opacity: 0;
+            transform: scale(1.05) translateY(-30px);
+            pointer-events: none;
+        }
+
+        #welcome-screen h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            color: #8A4A58; /* Burgundy elegan, tidak silau */
+            margin-bottom: 30px;
+            text-shadow: 2px 4px 10px rgba(138, 74, 88, 0.2);
+            text-align: center;
+        }
+
+        /* Efek Tombol 3D Elegan */
+        .btn-open {
+            padding: 16px 45px;
+            font-size: 1.2rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #A45C6A 0%, #C87C88 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: inset 2px 2px 5px rgba(255,255,255,0.3),
+                        inset -3px -3px 8px rgba(0,0,0,0.1),
+                        0 10px 25px rgba(138, 74, 88, 0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-open::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: rgba(255,255,255,0.15);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .btn-open:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: inset 2px 2px 5px rgba(255,255,255,0.4),
+                        inset -3px -3px 8px rgba(0,0,0,0.15),
+                        0 15px 35px rgba(138, 74, 88, 0.4);
+        }
+
+        .btn-open:hover::after {
+            opacity: 1;
+            left: 100%;
+            transition: all 0.6s ease;
+        }
+
+        /* --- Panduan Scroll --- */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #8A4A58;
+            font-weight: 600;
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        
+        .scroll-indicator.show {
+            opacity: 1;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            font-size: 2rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
+        }
+
+        /* --- Konten Utama (Scrollable) --- */
+        #main-container {
+            display: none;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Section Intro */
+        .section-intro {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .birthday-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            color: #8A4A58;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px #fff, 4px 4px 10px rgba(138, 74, 88, 0.2);
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .birthday-date {
+            font-size: 1.2rem;
+            color: #A45C6A;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s ease 0.3s;
+        }
+
+        /* Section Foto & Deskripsi */
+        .story-section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+            position: relative;
+        }
+
+        .story-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            max-width: 1000px;
+            width: 100%;
+            gap: 50px;
+            perspective: 1200px; 
+        }
+
+        .story-section:nth-child(even) .story-container {
+            flex-direction: row-reverse;
+        }
+
+        /* Desain Polaroid */
+        .story-image-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(-50px) rotateY(-8deg);
+            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-style: preserve-3d;
+        }
+        
+        .story-section:nth-child(even) .story-image-wrapper {
+            transform: translateX(50px) rotateY(8deg);
+        }
+
+        .polaroid {
+            background: #fff;
+            padding: 15px 15px 45px 15px;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1), 
+                        inset 0 0 0 1px rgba(0,0,0,0.03);
+            width: 100%;
+            max-width: 360px;
+            transform: rotate(-2deg);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .story-section:nth-child(even) .polaroid {
+            transform: rotate(3deg);
+        }
+
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) translateY(-5px) !important;
+            box-shadow: 0 25px 50px rgba(138, 74, 88, 0.2);
+            z-index: 10;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        /* Desain Teks Glassmorphism Lembut */
+        .story-text {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 45px;
+            border-radius: 20px;
+            border-top: 1px solid rgba(255,255,255,0.9);
+            border-left: 1px solid rgba(255,255,255,0.9);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            border-right: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 20px 50px rgba(138, 74, 88, 0.08);
+            
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .story-section:nth-child(even) .story-text {
+            transform: translateX(-50px);
+        }
+
+        .story-text h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.6rem;
+            color: #8A4A58;
+            margin-bottom: 15px;
+        }
+
+        .story-text p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #4A3B3D;
+        }
+
+        /* Final Section */
+        .final-section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .final-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.5) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 55px;
+            border-radius: 25px;
+            border-top: 1px solid rgba(255,255,255,1);
+            border-left: 1px solid rgba(255,255,255,1);
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(138, 74, 88, 0.1);
+            
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .final-card p {
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #4A3B3D;
+            margin-bottom: 20px;
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #8A4A58;
+            margin-top: 35px;
+        }
+
+        /* CLASS UNTUK TRIGGER ANIMASI SAAT SCROLL */
+        .visible .birthday-title {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .visible .birthday-date {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .visible .story-image-wrapper,
+        .visible .story-text {
+            opacity: 1;
+            transform: translateX(0) rotateY(0deg);
+        }
+        .visible.final-card {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Efek Hujan Hati yang lebih soft warnanya */
+        .heart-fall {
+            position: fixed;
+            color: #D67285; /* Soft pink-merah */
+            font-size: 1.5rem;
+            top: -10vh;
+            animation: fall linear infinite;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0.5; /* Lebih transparan agar tidak mengganggu mata */
+            filter: drop-shadow(0 3px 5px rgba(214, 114, 133, 0.2));
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg) scale(0.9); }
+            50% { transform: translateY(50vh) rotate(180deg) scale(1.1); }
+            100% { transform: translateY(110vh) rotate(360deg) scale(0.9); }
+        }
+
+        /* Responsif Mobile */
+        @media (max-width: 768px) {
+            #welcome-screen h1 { font-size: 3.5rem; }
+            .birthday-title { font-size: 3.5rem; }
+            .story-container { flex-direction: column !important; gap: 35px; }
+            .story-image-wrapper { transform: translateY(40px) rotateX(8deg) !important; }
+            .story-text { transform: translateY(40px) !important; }
+            .polaroid { max-width: 320px; }
+            .polaroid img { height: 320px; }
+            .story-text { padding: 35px 25px; }
+            .final-card { padding: 40px 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio Player -->
+    <audio id="bg-music" loop>
+        <source src="Love.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Background Orbs 3D Pastel -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Layar Pembuka -->
+    <div id="welcome-screen">
+        <h1>Ada sesuatu untukmu...</h1>
+        <button class="btn-open" onclick="startJourney()">Buka Sekarang 💌</button>
+    </div>
+
+    <!-- Panduan Scroll -->
+    <div class="scroll-indicator" id="scroll-hint">
+        <p>Scroll ke bawah</p>
+        <span>&darr;</span>
+    </div>
+
+    <!-- Konten Utama -->
+    <div id="main-container">
+        
+        <!-- Intro Section -->
+        <section class="section-intro reveal-target">
+            <h2 class="birthday-title">Happy 23rd Birthday</h2>
+            <p class="birthday-date">Silfa Azzahra • 21 Agustus</p>
+        </section>
+
+        <!-- Cerita 1 -->
+        <section class="story-section reveal-target" id="story1">
+            <div class="story-container">
+                <div class="story-image-wrapper">
+                    <div class="polaroid">
+                        <img src="Love1.png" alt="Kenangan 1">
+                    </div>
+                </div>
+                <div class="story-text">
+                    <h3>Awal Segalanya...</h3>
+                    <p>Melihat foto ini selalu ngingetin aku betapa beruntungnya aku. Setiap momen yang kita habisin bareng itu spesial, dan aku bersyukur banget bisa kenal dan jadi bagian dari hidup kamu.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cerita 2 -->
+        <section class="story-section reveal-target" id="story2">
+            <div class="story-container">
+                <div class="story-image-wrapper">
+                    <div class="polaroid">
+                        <img src="Love2.png" alt="Kenangan 2">
+                    </div>
+                </div>
+                <div class="story-text">
+                    <h3>Senyum Favoritku</h3>
+                    <p>Di usiamu yang ke-23 ini, satu hal yang paling aku pengen lihat adalah senyum bahagia kamu terus mekar. Ketawamu itu nular, dan selalu bisa bikin hariku yang berantakan jadi tenang lagi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cerita 3 -->
+        <section class="story-section reveal-target" id="story3">
+            <div class="story-container">
+                <div class="story-image-wrapper">
+                    <div class="polaroid">
+                        <img src="Love3.png" alt="Kenangan 3">
+                    </div>
+                </div>
+                <div class="story-text">
+                    <h3>Melangkah Bersama</h3>
+                    <p>Apapun mimpi dan tujuan kamu di umur yang baru ini, ingat ya, kamu gak sendirian. Aku di sini, bakal selalu support kamu, nemenin kamu, dan jadi pendengar pertama untuk semua cerita kamu.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Ucapan -->
+        <section class="final-section">
+            <div class="final-card reveal-target">
+                <p><strong>Sayangku Silfa,</strong></p>
+                <p>Selamat ulang tahun! 23 tahun yang lalu dunia jadi tempat yang jauh lebih indah karena kamu lahir ke dunia.</p>
+                <p>Semoga di umur ini, kamu selalu diberikan kesehatan, kelancaran dalam segala urusan, dan didekatkan dengan hal-hal baik. Jangan pernah nyerah sama apa yang kamu kejar. I love you more than words can say.</p>
+                <div class="signature">With all my love, <br> Pacarmu</div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Script Logika & Animasi Scroll -->
+    <script>
+        function startJourney() {
+            // Mainkan Lagu
+            document.getElementById('bg-music').play();
+
+            // Animasi Sembunyikan Welcome Screen
+            const welcome = document.getElementById('welcome-screen');
+            welcome.classList.add('hide');
+
+            // Tampilkan Main Container
+            setTimeout(() => {
+                welcome.style.display = 'none';
+                document.getElementById('main-container').style.display = 'block';
+                document.body.style.overflowY = 'auto'; 
+
+                document.getElementById('scroll-hint').classList.add('show');
+                
+                startHeartRain();
+                initScrollAnimations();
+            }, 1200);
+        }
+
+        // --- Intersection Observer untuk Animasi Scroll ---
+        function initScrollAnimations() {
+            const targets = document.querySelectorAll('.reveal-target');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.35 
+            });
+
+            targets.forEach(target => {
+                observer.observe(target);
+            });
+
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 100) {
+                    document.getElementById('scroll-hint').style.opacity = '0';
+                }
+            });
+        }
+
+        // --- Efek Hujan Hati (Lebih Lembut) ---
+        function startHeartRain() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('heart-fall');
+                
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
+                heart.style.animationDuration = Math.random() * 4 + 5 + 's'; // Jatuh sedikit lebih lambat
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 8000);
+            }, 600);
+        }
+    </script>
+</body>
+</html>
+
