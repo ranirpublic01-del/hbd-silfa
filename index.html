@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy 23rd Birthday, Silfa! ❤️</title>
+    <title>HBD Cilfaaa! ❤️</title>
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
@@ -407,6 +407,130 @@
             .story-text { padding: 35px 25px; }
             .final-card { padding: 40px 25px; }
         }
+
+        /* --- Section Video --- */
+        .video-section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .video-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 45px;
+            border-radius: 20px;
+            border-top: 1px solid rgba(255,255,255,0.9);
+            border-left: 1px solid rgba(255,255,255,0.9);
+            box-shadow: 0 20px 50px rgba(138, 74, 88, 0.08);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            
+            /* Persiapan Animasi Scroll */
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .video-card h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #8A4A58;
+            margin-bottom: 25px;
+        }
+
+        .video-wrapper {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+            background: #000; /* Background hitam selagi video loading */
+        }
+
+        .video-wrapper video {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        .video-card p {
+            font-size: 1.1rem;
+            color: #4A3B3D;
+        }
+
+        /* Trigger Animasi untuk Video Card */
+        .visible .video-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .video-card { padding: 30px 20px; }
+            .video-card h3 { font-size: 2.5rem; }
+        }
+
+        /* --- Cover Kejutan Video --- */
+        .video-wrapper {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            margin-bottom: 15px;
+            background: #000;
+            min-height: 250px; /* Menjaga bentuk kotak saat video belum muncul */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-cover {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #A45C6A 0%, #C87C88 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .video-cover:hover {
+            background: linear-gradient(135deg, #8A4A58 0%, #A45C6A 100%);
+        }
+
+        .cover-content {
+            text-align: center;
+            animation: pulse 2s infinite; /* Efek denyut jantung/zoom halus */
+        }
+
+        .play-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            display: block;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+        }
+
+        .cover-content p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem !important;
+            font-weight: 600;
+            color: #ffffff !important;
+            margin: 0 !important;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -425,7 +549,7 @@
 
     <!-- Layar Pembuka -->
     <div id="welcome-screen">
-        <h1>Ada sesuatu untukmu...</h1>
+        <h1>Coba Buka 🤭</h1>
         <button class="btn-open" onclick="startJourney()">Buka Sekarang 💌</button>
     </div>
 
@@ -440,8 +564,9 @@
         
         <!-- Intro Section -->
         <section class="section-intro reveal-target">
-            <h2 class="birthday-title">Happy 23rd Birthday</h2>
-            <p class="birthday-date">Silfa Azzahra • 21 Agustus</p>
+            <h2 class="birthday-title">Happy Birthday</h2>
+              <h2 class="birthday-title">Cilfaaaa🥰</h2>
+            <p class="birthday-date">21 Agustus 2003 - 21 Agustus 2026</p>
         </section>
 
         <!-- Cerita 1 -->
@@ -489,13 +614,37 @@
             </div>
         </section>
 
-        <!-- Final Ucapan -->
+
+ <!-- Final Ucapan & Video (Satu Card) -->
         <section class="final-section">
             <div class="final-card reveal-target">
-                <p><strong>Sayangku Silfa,</strong></p>
-                <p>Selamat ulang tahun! 23 tahun yang lalu dunia jadi tempat yang jauh lebih indah karena kamu lahir ke dunia.</p>
-                <p>Semoga di umur ini, kamu selalu diberikan kesehatan, kelancaran dalam segala urusan, dan didekatkan dengan hal-hal baik. Jangan pernah nyerah sama apa yang kamu kejar. I love you more than words can say.</p>
-                <div class="signature">With all my love, <br> Pacarmu</div>
+                <p><strong>Selamat Ulang Tahun yaaa</strong></p>
+<p>Selamat ulang tahun yang ke-22... eh 23🤭</p>. 
+<p>Semoga di umur yang baru ini, selalu diberi kesehatan, lancar rezekinya, dapat pekerjaan yang bagus, dan bisa kasih bangga terus orang tuamu. Apapun yang mu kejar, ingat nah ada ranir di sini yang akan temani k 😎. Jangan pernah menyerah, cillll. I love you more than words can say.</p>
+<p> </p>
+                
+
+<!-- Video di dalam Final Card dengan Cover Kejutan -->
+                <div class="video-container-inline">
+                    
+                    <div class="video-wrapper">
+                        <!-- Cover Kejutan (Bungkus Kado) -->
+                        <div class="video-cover" id="video-cover" onclick="revealVideo()">
+                            <div class="cover-content">
+                                <span class="play-icon">🎁</span>
+                                <p>Ada kejutan buat kamu!<br>Klik di sini ya sayang</p>
+                            </div>
+                        </div>
+
+                        <!-- Video (Disembunyikan awalnya) -->
+                        <video id="myVideo" controls playsinline preload="metadata" style="display: none;">
+                            <source src="Love.mp4" type="video/mp4">
+                            error :( ?
+                        </video>
+                    </div>
+                </div>
+
+                <div class="signature">Made with love, <br> your future Husband 😎</div>
             </div>
         </section>
 
@@ -520,6 +669,7 @@
                 document.getElementById('scroll-hint').classList.add('show');
                 
                 startHeartRain();
+                startCakeRain();
                 initScrollAnimations();
             }, 1200);
         }
@@ -567,6 +717,97 @@
                 }, 8000);
             }, 600);
         }
+
+        function startCakeRain() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '🎂';
+                heart.classList.add('heart-fall');
+                
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
+                heart.style.animationDuration = Math.random() * 4 + 5 + 's'; // Jatuh sedikit lebih lambat
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 8000);
+            }, 600);
+        }
+
+// --- Fungsi untuk Transisi Volume (Fade) ---
+        function fadeAudio(audio, targetVolume, duration) {
+            // Hapus animasi fade yang sedang berjalan agar tidak bertabrakan
+            if (audio.fadeInterval) {
+                clearInterval(audio.fadeInterval);
+            }
+
+            const stepTime = 50; // Interval waktu (ms) setiap perubahan volume
+            const steps = duration / stepTime; // Jumlah langkah
+            const volumeStep = (targetVolume - audio.volume) / steps; // Besar perubahan volume tiap langkah
+
+            audio.fadeInterval = setInterval(() => {
+                let newVolume = audio.volume + volumeStep;
+
+                // Cek apakah volume sudah mencapai target (atau melewati batas 0 dan 1)
+                if ((volumeStep > 0 && newVolume >= targetVolume) || (volumeStep < 0 && newVolume <= targetVolume)) {
+                    audio.volume = targetVolume;
+                    clearInterval(audio.fadeInterval);
+                } else if (newVolume >= 1.0) {
+                    audio.volume = 1.0;
+                    clearInterval(audio.fadeInterval);
+                } else if (newVolume <= 0.0) {
+                    audio.volume = 0.0;
+                    clearInterval(audio.fadeInterval);
+                } else {
+                    audio.volume = newVolume;
+                }
+            }, stepTime);
+        }
+
+        // --- Logika Audio & Video ---
+        const bgMusic = document.getElementById('bg-music');
+        const myVideo = document.getElementById('myVideo');
+
+        if(myVideo && bgMusic) {
+            // Set volume awal musik background 100%
+            bgMusic.volume = 1.0;
+
+            // Saat video diputar: fade musik latar ke 20% selama 1 detik (1000ms)
+            myVideo.addEventListener('play', () => {
+                fadeAudio(bgMusic, 0.2, 1000); 
+                myVideo.volume = 1.0;
+            });
+
+            // Saat video di-pause: fade musik latar ke 100% selama 1 detik (1000ms)
+            myVideo.addEventListener('pause', () => {
+                fadeAudio(bgMusic, 1.0, 1000);
+            });
+            
+            // Saat video selesai: fade musik latar ke 100% selama 1 detik (1000ms)
+            myVideo.addEventListener('ended', () => {
+                fadeAudio(bgMusic, 1.0, 50);
+            });
+        }
+
+
+        // --- Fungsi Buka Cover Video ---
+        function revealVideo() {
+            const cover = document.getElementById('video-cover');
+            const video = document.getElementById('myVideo');
+            
+            // Menghilangkan cover dengan transisi fade out
+            cover.style.opacity = '0';
+            setTimeout(() => {
+                cover.style.display = 'none';
+                // Menampilkan video
+                video.style.display = 'block';
+                // Langsung mainkan video otomatis
+                video.play();
+            }, 300); // Jeda 300ms agar animasinya halus
+        }
+
     </script>
 </body>
 </html>
